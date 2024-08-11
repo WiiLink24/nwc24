@@ -69,7 +69,7 @@ func (m *Message) ToString() (string, error) {
 	}
 
 	if m.contentType == MultipartMixed {
-		data += fmt.Sprintf("Content-Type: multipart/mixed; boundary=%s%s", m.boundary, CRLF)
+		data += fmt.Sprintf("Content-Type: multipart/mixed; boundary=\"%s\"%s", m.boundary, CRLF)
 		data += "Content-Transfer-Encoding: base64" + CRLF
 
 		// Form the multiple parts now
