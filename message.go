@@ -56,8 +56,8 @@ func (m *Message) ToString() (string, error) {
 	data := fmt.Sprint(
 		"Content-Type: text/plain", CRLF, CRLF,
 		"Date: ", time.Now().Format("02 Jan 2006 15:04:05 -0700"), CRLF,
-		"From: ", m.from.String(), CRLF,
-		"To: ", m.to.String(), CRLF,
+		"From: ", m.from.Address, CRLF,
+		"To: ", m.to.Address, CRLF,
 		// TODO: Change this to dynamic
 		"Message-ID: <776DCLBHYHD.2QBO4Y3I2Y04S@JavaMail.w9999999900000000@rc24.xyz>\r\n",
 		"Subject: ", m.subject, CRLF,
