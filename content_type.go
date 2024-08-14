@@ -30,7 +30,7 @@ func (m *Message) SetContentType(ct ContentType) {
 func UTF16ToString(uint16s []uint16) string {
 	byteArray := make([]byte, len(uint16s)*2)
 	for i, v := range uint16s {
-		binary.LittleEndian.PutUint16(byteArray[i*2:], v)
+		binary.BigEndian.PutUint16(byteArray[i*2:], v)
 	}
 
 	return string(byteArray)
