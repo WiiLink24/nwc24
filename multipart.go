@@ -54,7 +54,7 @@ func (m *Multipart) toString() (string, error) {
 
 		return fmt.Sprint(
 			CRLF,
-			"Content-Type: ", m.contentType, ";", "charset=", m.charset, CRLF,
+			"Content-Type: ", m.contentType, "; ", "charset=", m.charset, CRLF,
 			"Content-Transfer-Encoding: base64", CRLF, CRLF,
 			encoded,
 			CRLF,

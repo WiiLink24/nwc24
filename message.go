@@ -55,7 +55,7 @@ func (m *Message) ToString() (string, error) {
 
 	data := fmt.Sprint(
 		"Content-Type: text/plain", CRLF, CRLF,
-		"Date: ", time.Now().Format("02 Jan 2006 15:04:05 -0700"), CRLF,
+		"Date: ", time.Now().Format(time.RFC1123), CRLF,
 		"From: ", m.from.Address, CRLF,
 		"To: ", m.to.Address, CRLF,
 		// TODO: Change this to dynamic
@@ -70,7 +70,7 @@ func (m *Message) ToString() (string, error) {
 
 	if m.contentType == MultipartMixed {
 		data += fmt.Sprintf("Content-Type: multipart/mixed; boundary=\"%s\"%s", m.boundary, CRLF)
-		data += "Content-Transfer-Encoding: base64" + CRLF
+		data += "Content-Transfer-Encoding: base64" + CRLF + CRLF
 
 		// Form the multiple parts now
 		for _, multipart := range m.multipart {
