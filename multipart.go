@@ -1,9 +1,7 @@
 package nwc24
 
 import (
-	"encoding/base64"
 	"fmt"
-	"strings"
 )
 
 type Multipart struct {
@@ -37,7 +35,7 @@ func (m *Multipart) SetContentType(ct ContentType) {
 func (m *Multipart) toString() (string, error) {
 	switch m.contentType {
 	case Binary, WiiMessageBoard, Jpeg:
-		encoded := strings.ReplaceAll(base64.StdEncoding.EncodeToString(m.fileData), LF, CRLF)
+		encoded := Base64Encode(m.fileData)
 		return fmt.Sprint(
 			CRLF,
 			"Content-Type: ", m.contentType, ";", CRLF,
@@ -50,7 +48,7 @@ func (m *Multipart) toString() (string, error) {
 			CRLF,
 		), nil
 	case PlainText:
-		encoded := strings.ReplaceAll(base64.StdEncoding.EncodeToString([]byte(m.content)), LF, CRLF)
+		encoded := Base64Encode([]byte(m.content))
 
 		return fmt.Sprint(
 			CRLF,

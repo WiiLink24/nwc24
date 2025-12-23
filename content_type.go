@@ -1,6 +1,10 @@
 package nwc24
 
-import "encoding/binary"
+import (
+	"encoding/base64"
+	"encoding/binary"
+	"strings"
+)
 
 // ContentType represents the different content types a message can have.
 type ContentType string
@@ -34,4 +38,28 @@ func UTF16ToString(uint16s []uint16) string {
 	}
 
 	return string(byteArray)
+}
+
+// Base64Encode is a helper to encode content to base64, then make it conform to RFC2045 (76 character lines)
+func Base64Encode(content []byte) string {
+	b := base64.StdEncoding.EncodeToString(content)
+	b = strings.ReplaceAll(b, LF, CRLF)
+	if len(b) <= 76 {
+		return b
+	}
+
+	// 76 characters per line
+	cleanString := ""
+	for {
+		if len(b) >= 76 {
+			cleanString += b[:76] + CRLF
+			b = b[76:]
+			continue
+		}
+
+		cleanString += b
+		break
+	}
+
+	return cleanString
 }
